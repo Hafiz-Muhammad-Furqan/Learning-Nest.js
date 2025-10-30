@@ -6,7 +6,7 @@ import { Model } from 'mongoose';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>) { }
+  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
   async createUser(registerUserDto: RegisterUserDto) {
     try {
       return await this.userModel.create(registerUserDto);
@@ -16,5 +16,9 @@ export class UserService {
       }
       throw error;
     }
+  }
+
+  async getUserByEmail(email: string): Promise<User | null> {
+    return this.userModel.findOne({ email }).exec();
   }
 }
