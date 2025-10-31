@@ -20,7 +20,7 @@ export class AuthService {
       ...registerUserDto,
       password: hash,
     });
-    const payLoad = { sub: user._id, email: user.email };
+    const payLoad = { sub: user._id, email: user.email, role: user.role };
     const access_token = await this.jwtService.signAsync(payLoad);
     return {
       message: 'User Registered Successfully!',
@@ -38,7 +38,7 @@ export class AuthService {
     if (!isPasswordValid) {
       throw new Error('Invalid password');
     }
-    const payload = { sub: (user as any)._id, email: user.email };
+    const payload = { sub: (user as any)._id, email: user.email , role: user.role};
 
     const access_token = await this.jwtService.signAsync(payload);
     return {
